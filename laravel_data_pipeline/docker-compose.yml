@@ -1,0 +1,125 @@
+name: laravel-data-pipeline
+
+networks:
+  sail:
+    driver: bridge
+
+volumes:
+  pgsql-data:
+  redis-data:
+  duckdb-data:
+
+services:
+  # === LARAVEL + PHP + NODE (Sail) ===
+  laravel:
+    build:
+      context: ./web/vendor/laravel/sail/runtimes/8.4
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: "${WWWGROUP:-1000}"
+    image: sail-8.4/app
+    container_name: laravel-app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - '8080:80'
+      - '5173:5173'
+    environment:
+      WWWUSER: "${WWWUSER:-1000}"
+      LARAVEL_SAIL: 1
+      XDEBUG_MODE: "${SAIL_XDEBUG_MODE:-off}"
+      XDEBUG_CONFIG: "${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}"
+      IGNITION_LOCAL_SITES_PATH: "/var/www/html"
+      WAREHOUSE_URI: "file:///warehouse"
+      etlctl_BASE_URL: "http://worker:8080"
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./web:/var/www/html
+      - ./datas/warehouse:/warehouse
+    depends_on:
+      pgsql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      worker:
+        condition: service_started
+    networks: [sail]
+
+  # === POSTGRES ===
+  pgsql:
+    image: postgres:17-alpine
+    container_name: pgsql
+    environment:
+      POSTGRES_DB: "${DB_DATABASE:-app}"
+      POSTGRES_USER: "${DB_USERNAME:-app}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:-secret}"
+      PGPASSWORD: "${DB_PASSWORD:-secret}"
+    volumes:
+      - pgsql-data:/var/lib/postgresql/data
+      - ./web/vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE:-app}", "-U", "${DB_USERNAME:-app}"]
+      retries: 5
+      timeout: 5s
+      interval: 5s
+    ports:
+      - "${FORWARD_DB_PORT:-5432}:5432"
+    networks: [sail]
+
+  # === REDIS ===
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      retries: 5
+      timeout: 5s
+      interval: 5s
+    ports:
+      - "${FORWARD_REDIS_PORT:-6379}:6379"
+    networks: [sail]
+
+  # === WORKER RUST (Axum) ===
+  worker:
+    build:
+      context: .
+      dockerfile: infra/etlctl/Dockerfile
+      args:
+        PUID: 1000
+        PGID: 1000
+        RUST_VERSION: stable
+    container_name: worker
+    environment:
+      RUST_LOG: info
+      PG_DSN: "postgres://${DB_USERNAME:-app}:${DB_PASSWORD:-secret}@pgsql:5432/${DB_DATABASE:-app}"
+      WAREHOUSE_URI: "file:///warehouse"
+      BIND_ADDR: "0.0.0.0:8080"
+      DUCKDB_BASE_DIR: "/data/duckdb"
+    volumes:
+      - ./datas/warehouse:/warehouse
+      - ./etlctl/logs:/logs
+      - duckdb-data:/data/duckdb
+      - ./datas/samples:/samples:ro
+    expose: ["8080"]
+    ports:
+      - "8081:8080"
+    networks: [sail]
+
+  # === METABASE (custom Dockerfile fourni) ===
+  metabase:
+    build:
+      context: ./infra/metabase
+      dockerfile: Dockerfile
+    container_name: metabase
+    environment:
+      MB_PLUGINS_DIR: /home/plugins
+      JAVA_TOOL_OPTIONS: "-Duser.timezone=Europe/Paris"
+    ports:
+      - "3000:3000"
+    volumes:
+      - duckdb-data:/data/duckdb
+      - ./datas/warehouse:/warehouse:ro
+    networks: [sail]

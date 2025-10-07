@@ -1,0 +1,12 @@
+/target
+**/*.rs.bk
+.DS_Store
+.idea
+.vscode
+*.log
+/datas/
+/docs
+/metabase
+condense.exe
+output.txt
+info.txt

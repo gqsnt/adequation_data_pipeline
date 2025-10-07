@@ -1,0 +1,688 @@
+{
+  "project": {
+    "namespace": "dvf",
+    "warehouse_uri": "file://..\\datas\\warehouse"
+  },
+  "datasets": [
+    {
+      "Bronze": {
+        "uri": "file://..\\datas\\samples\\dvf.csv",
+        "source": {
+          "Csv": {
+            "Csv": {
+              "delimiter": ",",
+              "has_header": true,
+              "encoding": "utf-8"
+            }
+          }
+        },
+        "inner": {
+          "name": "dvf_2020_2024_csv",
+          "primary_key": ["id_mutation", "date_mutation", "numero_disposition", "nature_mutation"],
+          "schema": {
+            "fields": [
+              {
+                "name": "id_mutation",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "date_mutation",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "numero_disposition",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "nature_mutation",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "valeur_fonciere",
+                "type": "f64",
+                "nullable": true
+              },
+              {
+                "name": "adresse_numero",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "adresse_suffixe",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "adresse_nom_voie",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "adresse_code_voie",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "code_postal",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "code_commune",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "nom_commune",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "code_departement",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "ancien_code_commune",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "ancien_nom_commune",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "id_parcelle",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "ancien_id_parcelle",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "numero_volume",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "lot1_numero",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "lot1_surface_carrez",
+                "type": "f64",
+                "nullable": true
+              },
+              {
+                "name": "lot2_numero",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "lot2_surface_carrez",
+                "type": "f64",
+                "nullable": true
+              },
+              {
+                "name": "lot3_numero",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "lot3_surface_carrez",
+                "type": "f64",
+                "nullable": true
+              },
+              {
+                "name": "lot4_numero",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "lot4_surface_carrez",
+                "type": "f64",
+                "nullable": true
+              },
+              {
+                "name": "lot5_numero",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "lot5_surface_carrez",
+                "type": "f64",
+                "nullable": true
+              },
+              {
+                "name": "nombre_lots",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "code_type_local",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "type_local",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "surface_reelle_bati",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "nombre_pieces_principales",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "code_nature_culture",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "nature_culture",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "code_nature_culture_speciale",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "nature_culture_speciale",
+                "type": "str",
+                "nullable": true
+              },
+              {
+                "name": "surface_terrain",
+                "type": "i64",
+                "nullable": true
+              },
+              {
+                "name": "longitude",
+                "type": "f64",
+                "nullable": true
+              },
+              {
+                "name": "latitude",
+                "type": "f64",
+                "nullable": true
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "Silver": {
+        "name": "silver",
+        "primary_key": ["id_mutation", "date_mutation", "numero_disposition", "nature_mutation"],
+        "schema": {
+          "fields": [
+            {
+              "name": "id_mutation",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "date_mutation",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "numero_disposition",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "nature_mutation",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "valeur_fonciere",
+              "type": "f64",
+              "nullable": true
+            },
+            {
+              "name": "adresse_numero",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "adresse_suffixe",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "adresse_nom_voie",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "adresse_code_voie",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "code_postal",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "code_commune",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "nom_commune",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "code_departement",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "ancien_code_commune",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "ancien_nom_commune",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "id_parcelle",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "ancien_id_parcelle",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "numero_volume",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "lot1_numero",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "lot1_surface_carrez",
+              "type": "f64",
+              "nullable": true
+            },
+            {
+              "name": "lot2_numero",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "lot2_surface_carrez",
+              "type": "f64",
+              "nullable": true
+            },
+            {
+              "name": "lot3_numero",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "lot3_surface_carrez",
+              "type": "f64",
+              "nullable": true
+            },
+            {
+              "name": "lot4_numero",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "lot4_surface_carrez",
+              "type": "f64",
+              "nullable": true
+            },
+            {
+              "name": "lot5_numero",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "lot5_surface_carrez",
+              "type": "f64",
+              "nullable": true
+            },
+            {
+              "name": "nombre_lots",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "code_type_local",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "type_local",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "surface_reelle_bati",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "nombre_pieces_principales",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "code_nature_culture",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "nature_culture",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "code_nature_culture_speciale",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "nature_culture_speciale",
+              "type": "str",
+              "nullable": true
+            },
+            {
+              "name": "surface_terrain",
+              "type": "i64",
+              "nullable": true
+            },
+            {
+              "name": "longitude",
+              "type": "f64",
+              "nullable": true
+            },
+            {
+              "name": "latitude",
+              "type": "f64",
+              "nullable": true
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "mapping": {
+    "transforms": {
+      "filters": [],
+      "columns": [
+        {
+          "target": "id_mutation",
+          "expr": {
+            "col": "adresse_nom_voie"
+          }
+        },
+        {
+          "target": "date_mutation",
+          "expr": {
+            "col": "date_mutation"
+          }
+        },
+        {
+          "target": "numero_disposition",
+          "expr": {
+            "col": "numero_disposition"
+          }
+        },
+        {
+          "target": "nature_mutation",
+          "expr": {
+            "col": "nature_mutation"
+          }
+        },
+        {
+          "target": "valeur_fonciere",
+          "expr": {
+            "col": "valeur_fonciere"
+          }
+        },
+        {
+          "target": "adresse_numero",
+          "expr": {
+            "col": "adresse_numero"
+          }
+        },
+        {
+          "target": "adresse_suffixe",
+          "expr": {
+            "col": "adresse_suffixe"
+          }
+        },
+        {
+          "target": "adresse_nom_voie",
+          "expr": {
+            "col": "adresse_nom_voie"
+          }
+        },
+        {
+          "target": "adresse_code_voie",
+          "expr": {
+            "col": "adresse_code_voie"
+          }
+        },
+        {
+          "target": "code_postal",
+          "expr": {
+            "col": "code_postal"
+          }
+        },
+        {
+          "target": "code_commune",
+          "expr": {
+            "col": "code_commune"
+          }
+        },
+        {
+          "target": "nom_commune",
+          "expr": {
+            "col": "nom_commune"
+          }
+        },
+        {
+          "target": "code_departement",
+          "expr": {
+            "col": "code_departement"
+          }
+        },
+        {
+          "target": "ancien_code_commune",
+          "expr": {
+            "col": "ancien_code_commune"
+          }
+        },
+        {
+          "target": "ancien_nom_commune",
+          "expr": {
+            "col": "ancien_nom_commune"
+          }
+        },
+        {
+          "target": "id_parcelle",
+          "expr": {
+            "col": "id_parcelle"
+          }
+        },
+        {
+          "target": "ancien_id_parcelle",
+          "expr": {
+            "col": "ancien_id_parcelle"
+          }
+        },
+        {
+          "target": "numero_volume",
+          "expr": {
+            "col": "numero_volume"
+          }
+        },
+        {
+          "target": "lot1_numero",
+          "expr": {
+            "col": "lot1_numero"
+          }
+        },
+        {
+          "target": "lot1_surface_carrez",
+          "expr": {
+            "col": "lot1_surface_carrez"
+          }
+        },
+        {
+          "target": "lot2_numero",
+          "expr": {
+            "col": "lot2_numero"
+          }
+        },
+        {
+          "target": "lot2_surface_carrez",
+          "expr": {
+            "col": "lot2_surface_carrez"
+          }
+        },
+        {
+          "target": "lot3_numero",
+          "expr": {
+            "col": "lot3_numero"
+          }
+        },
+        {
+          "target": "lot3_surface_carrez",
+          "expr": {
+            "col": "lot3_surface_carrez"
+          }
+        },
+        {
+          "target": "lot4_numero",
+          "expr": {
+            "col": "lot4_numero"
+          }
+        },
+        {
+          "target": "lot4_surface_carrez",
+          "expr": {
+            "col": "lot4_surface_carrez"
+          }
+        },
+        {
+          "target": "lot5_numero",
+          "expr": {
+            "col": "lot5_numero"
+          }
+        },
+        {
+          "target": "lot5_surface_carrez",
+          "expr": {
+            "col": "lot5_surface_carrez"
+          }
+        },
+        {
+          "target": "nombre_lots",
+          "expr": {
+            "col": "nombre_lots"
+          }
+        },
+        {
+          "target": "code_type_local",
+          "expr": {
+            "col": "code_type_local"
+          }
+        },
+        {
+          "target": "type_local",
+          "expr": {
+            "col": "type_local"
+          }
+        },
+        {
+          "target": "surface_reelle_bati",
+          "expr": {
+            "col": "surface_reelle_bati"
+          }
+        },
+        {
+          "target": "nombre_pieces_principales",
+          "expr": {
+            "col": "nombre_pieces_principales"
+          }
+        },
+        {
+          "target": "code_nature_culture",
+          "expr": {
+            "col": "code_nature_culture"
+          }
+        },
+        {
+          "target": "nature_culture",
+          "expr": {
+            "col": "nature_culture"
+          }
+        },
+        {
+          "target": "code_nature_culture_speciale",
+          "expr": {
+            "col": "code_nature_culture_speciale"
+          }
+        },
+        {
+          "target": "nature_culture_speciale",
+          "expr": {
+            "col": "nature_culture_speciale"
+          }
+        },
+        {
+          "target": "surface_terrain",
+          "expr": {
+            "col": "surface_terrain"
+          }
+        },
+        {
+          "target": "longitude",
+          "expr": {
+            "col": "longitude"
+          }
+        },
+        {
+          "target": "latitude",
+          "expr": {
+            "col": "latitude"
+          }
+        }
+      ]
+    },
+    "dq_rules": []
+  }
+}
